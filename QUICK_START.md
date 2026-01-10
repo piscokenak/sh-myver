@@ -45,111 +45,60 @@ Uploading .pio/build/esp32/firmware.bin
 
 ---
 
-## 📡 STEP 2: Connect ke ESP32 WiFi Hotspot
+## 🎮 Step 4: Testing
 
-Setelah firmware berhasil di-flash:
+### Test Flow Lengkap:
 
-### Di Windows:
-1. Buka **Settings → Network & Internet → WiFi**
-2. Cari dan hubungkan ke WiFi hotspot ESP32 (nama SSID default: `Esp32AP`)
-3. Password: `12345678` (default dari `sdkconfig.esp32`)
-
-### Di Linux/Mac:
-```bash
-# Cari WiFi hotspot
-nmcli dev wifi list
-
-# Connect
-nmcli dev wifi connect "Esp32AP" password "12345678"
+```
+1. Connect ke WiFi "WiFiClone"
+   ↓
+2. Buka http://192.168.4.1/login.html
+   ↓
+3. Isi form:
+   • Username: testuser
+   • Password: pass123
+   ↓
+4. Klik Submit
+   ↓
+5. Buka http://192.168.4.1/admin → Tab "Passwords"
+   ↓
+6. Lihat credentials tertangkap ✓
 ```
 
 ---
 
-## 🌐 STEP 3: Akses Web Interface
+## 📝 Files Generated
 
-Buka browser dan akses salah satu dari:
+| File | Location | Fungsi |
+|------|----------|--------|
+| **credentials.txt** | `/spiffs/credentials.txt` | Simpan username + password |
+| **firmware.bin** | `.pio/build/esp32/` | Binary yang di-flash ke board |
 
-### **Admin Page** (untuk melihat captured credentials):
+Format file:
 ```
-http://192.168.4.1/
-```
-
-### **Login Clone Page** (untuk test login):
-```
-http://192.168.4.1/login.html
-```
-
----
-
-## 🧪 Test Flow
-
-### 1. **Test Login Page**
-1. Akses `http://192.168.4.1/login.html`
-2. Akan melihat form login sederhana dengan:
-   - Username input
-   - Password input
-   - Login button
-
-### 2. **Masukkan Credentials**
-```
-Username: admin
-Password: 12345
-```
-
-### 3. **Lihat Credentials di Admin Page**
-1. Akses `http://192.168.4.1/` (Admin Page)
-2. Klik tab **"Passwords"** 
-3. Klik tombol **"UPDATE"**
-4. Akan melihat credentials yang tertangkap:
-```
-admin --- 12345
-```
-
----
-
-## 📊 File Structure Credentials
-
-Credentials disimpan di ESP32 SPIFFS (file system):
-```
-/spiffs/credentials.txt
-Format: username|password|timestamp
-
-Contoh:
+username|password|timestamp
 admin|12345|2026-01-10 11:16:49
-user@example.com|mypass123|2026-01-10 11:17:30
+testuser|pass123|2026-01-10 11:17:30
 ```
 
 ---
 
-## 🔧 Troubleshooting
+## ⚠️ Troubleshooting
 
-### Build Error: "Unknown platform"
-```powershell
-# Clean cache
-python -m platformio system prune -f
+| Masalah | Solusi |
+|--------|--------|
+| **Build gagal** | `pio system prune -f` → rebuild |
+| **Upload error** | Cek COM port: `pio device list` |
+| **WiFi tidak terlihat** | Reset board (tekan RESET button) |
+| **192.168.4.1 error** | Pastikan sudah connect ke WiFi hotspot |
 
-# Rebuild
-python -m platformio run -e esp32
-```
+---
 
-### ESP32 tidak terdeteksi saat upload
-```powershell
-# List available COM ports
-python -m platformio device list
+## 📚 More Info
 
-# Jika perlu specify port
-python -m platformio run -e esp32 --target upload --upload-port COM3
-```
-
-### Tidak bisa connect ke WiFi hotspot
-- Reset ESP32 dengan menekan RESET button
-- Tunggu ~5 detik sampai WiFi hotspot muncul
-- Check di `sdkconfig.esp32` untuk SSID dan password default
-
-### Website tidak bisa diakses (192.168.4.1)
-1. Pastikan sudah connect ke WiFi hotspot ESP32
-2. Cek IP address: buka CMD, ketik `ipconfig` dan cari IP yang dimulai `192.168.4.x`
-3. Test ping ESP32: `ping 192.168.4.1`
+- **Source Code:** `src/` & `include/`
+- **Config:** `platformio.ini` & `sdkconfig.esp32`
+- **Build Logs:** `.pio/build/esp32/`
 
 ---
 

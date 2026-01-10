@@ -18,3 +18,11 @@ __pycache__/
 
 # Misc
 .DS_Store
+# Documentation & Scripts
+QUICK_START_OLD.md
+GITHUB_UPLOAD.md
+SHARE_GUIDE.md
+MANUAL_GIT_COMMANDS.txt
+build_log.txt
+*.ps1
+
