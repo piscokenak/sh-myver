@@ -1,144 +1,247 @@
-﻿# WiFiShield Quick Start
+﻿# Quick Start WiFiShield
 
-Setup and run WiFiShield on ESP32 for credential capture.
+Panduan cepat untuk setup dan menjalankan WiFiShield.
 
----
+## Daftar Isi
 
-## English
+- [Persyaratan](#persyaratan)
+- [Instalasi](#instalasi)
+- [Build dan Flash](#build-dan-flash)
+- [Akses Admin Panel](#akses-admin-panel)
+- [Testing](#testing)
+- [Troubleshooting](#troubleshooting)
 
-### Requirements
+## Persyaratan
 
-- ESP32 Development Board
-- USB Cable  
-- Python 3.8 or higher
-- PlatformIO installed
+Sebelum memulai, pastikan Anda memiliki:
 
-### Step 1: Clone Repository
-
-\\\
-git clone https://github.com/Harriiee/wifishield.git
-cd wifishield
-\\\
-
-### Step 2: Build Firmware
-
-\\\
-python -m platformio run -e esp32
-\\\
-
-Wait until you see SUCCESS message.
-
-### Step 3: Flash to ESP32
-
-Make sure ESP32 is connected via USB cable.
-
-\\\
-python -m platformio run -e esp32 --target upload
-\\\
-
-Board will restart automatically after flashing.
-
-### Step 4: Connect and Access
-
-1. Connect to WiFi network: WiFiShield
-2. Enter password: 12345678
-3. Open browser and go to: http://192.168.4.1/admin
-4. View captured credentials in Passwords tab
-
-### Testing
-
-1. Visit login page: http://192.168.4.1/login.html
-2. Enter any username and password
-3. Click submit
-4. Check admin panel to see captured credentials
-
-### Troubleshooting
-
-If build fails:
-\\\
-python -m platformio system prune -f
-python -m platformio run -e esp32
-\\\
-
-If upload fails:
-- Check USB cable connection
-- Verify COM port: python -m platformio device list
-- Try pressing RESET button on board
-
-If cannot access 192.168.4.1:
-- Ensure you are connected to WiFiShield network
-- Check WiFi password is correct
-- Reset the board
-
----
-
-## Bahasa Indonesia
-
-### Persyaratan
-
-- Board ESP32 Development
-- Kabel USB
+- ESP32 Development Board (misalnya ESP32-WROOM-32)
+- Kabel USB untuk menghubungkan board ke komputer
 - Python 3.8 atau lebih tinggi
-- PlatformIO terinstall
+- PlatformIO (akan diinstall otomatis)
+- Git (untuk clone repository)
 
-### Langkah 1: Clone Repository
+## Instalasi
 
-\\\
+### 1. Clone Repository
+
+Buka terminal/command prompt dan jalankan:
+
+\\\ash
 git clone https://github.com/Harriiee/wifishield.git
 cd wifishield
 \\\
 
-### Langkah 2: Build Firmware
+### 2. Install PlatformIO (jika belum)
 
-\\\
-python -m platformio run -e esp32
-\\\
-
-Tunggu sampai muncul pesan SUCCESS.
-
-### Langkah 3: Flash ke ESP32
-
-Pastikan ESP32 sudah terhubung via kabel USB.
-
-\\\
-python -m platformio run -e esp32 --target upload
+\\\ash
+pip install platformio
 \\\
 
-Board akan restart otomatis setelah flashing.
+Verifikasi instalasi:
 
-### Langkah 4: Hubungkan dan Akses
-
-1. Hubungkan ke WiFi: WiFiShield
-2. Masukkan password: 12345678
-3. Buka browser dan ke: http://192.168.4.1/admin
-4. Lihat kredensial tertangkap di tab Passwords
-
-### Testing
-
-1. Kunjungi halaman login: http://192.168.4.1/login.html
-2. Masukkan username dan password apapun
-3. Klik submit
-4. Cek admin panel untuk melihat kredensial tertangkap
-
-### Troubleshooting
-
-Jika build gagal:
-\\\
-python -m platformio system prune -f
-python -m platformio run -e esp32
+\\\ash
+platformio --version
 \\\
 
-Jika upload gagal:
-- Cek koneksi kabel USB
-- Verifikasi COM port: python -m platformio device list
-- Coba tekan tombol RESET di board
+## Build dan Flash
 
-Jika tidak bisa akses 192.168.4.1:
-- Pastikan terhubung ke network WiFiShield
-- Cek password WiFi benar
+### 1. Build Firmware
+
+Compile code untuk ESP32:
+
+\\\ash
+platformio run -e esp32
+\\\
+
+Tunggu hingga muncul message: \[SUCCESS]\
+
+### 2. Connect ESP32 via USB
+
+Sambungkan board ESP32 ke komputer dengan kabel USB.
+
+### 3. Flash ke Board
+
+Upload firmware ke ESP32:
+
+\\\ash
+platformio run -e esp32 --target upload
+\\\
+
+Tunggu hingga selesai. Board akan restart otomatis.
+
+## Akses Admin Panel
+
+### 1. Hubungkan ke WiFi
+
+Cari dan hubungkan ke network WiFi baru:
+
+- **SSID:** WiFiShield
+- **Password:** 12345678
+
+### 2. Buka Browser
+
+Ketik di address bar:
+
+\\\
+http://192.168.4.1/admin
+\\\
+
+Anda akan melihat admin panel dengan berbagai tab termasuk "Passwords" untuk melihat credentials yang tertangkap.
+
+## Testing
+
+### Test Login Page
+
+1. Buka halaman login di browser:
+
+\\\
+http://192.168.4.1/login.html
+\\\
+
+2. Masukkan username dan password (bisa apapun):
+
+\\\
+Username: testuser
+Password: testpass123
+\\\
+
+3. Klik tombol Submit
+
+4. Kembali ke admin panel dan buka tab "Passwords"
+
+5. Anda akan melihat credentials yang tertangkap ditampilkan di sana.
+
+## Troubleshooting
+
+### Build Gagal - Unknown Platform
+
+Jika muncul error "Unknown platform", jalankan:
+
+\\\ash
+platformio system prune -f
+platformio platform install espressif32
+platformio run -e esp32
+\\\
+
+### Build Gagal - Kompilasi Error
+
+Pastikan Anda di folder project yang benar:
+
+\\\ash
+cd path/to/wifishield
+platformio run -e esp32
+\\\
+
+### Upload Gagal
+
+**Masalah:** Board tidak terdeteksi
+
+**Solusi:**
+
+1. Cek koneksi USB cable
+2. Lihat port yang tersedia:
+
+\\\ash
+platformio device list
+\\\
+
+3. Jika ada port, specify saat upload:
+
+\\\ash
+platformio run -e esp32 --target upload --upload-port COM3
+\\\
+
+Ganti \COM3\ dengan port Anda.
+
+4. Coba tekan tombol RESET di board
+
+5. Coba upload lagi
+
+### Tidak Bisa Akses 192.168.4.1
+
+**Pastikan:**
+
+- Sudah hubung ke WiFi \WiFiShield\
+- Password yang digunakan: \12345678\
+- Board berhasil di-flash (LED berkedip)
+
+**Test koneksi:**
+
+\\\ash
+ping 192.168.4.1
+\\\
+
+Jika tidak respond:
+
+- Reset board (tekan tombol RESET)
+- Flash ulang firmware
+- Cek koneksi USB
+
+### WiFi Tidak Terlihat
+
+- Tunggu 10-15 detik setelah board restart
+- Reset board (tekan tombol RESET)
+- Verifikasi firmware berhasil di-flash
+
+### Admin Panel Blank / Error
+
+- Refresh halaman di browser (F5)
+- Clear browser cache
+- Coba browser lain
 - Reset board
 
+## File Penting
+
+\\\
+wifishield/
+ src/                    - Source code C
+    main.c             - Main firmware
+    server.c           - Web server
+    evil_twin.c        - Evil Twin logic
+    passwordMng.c      - Password storage
+    ...
+ include/                - Header files
+ lib/                    - External libraries
+ platformio.ini          - PlatformIO config
+ CMakeLists.txt          - CMake config
+ README.md               - Dokumentasi lengkap
+ QUICK_START.md          - File ini
+ LICENSE                 - MIT License
+\\\
+
+## Konfigurasi (Opsional)
+
+Default configuration:
+
+- WiFi SSID: \WiFiShield\
+- WiFi Password: \12345678\
+- Admin Address: \192.168.4.1\
+- Admin Port: \80\
+
+Untuk mengubah, edit file di \src/\ dan \include/\ sesuai kebutuhan.
+
+## Next Steps
+
+- Baca dokumentasi lengkap di README.md
+- Explore source code di folder \src/\
+- Customize WiFi SSID dan password
+- Modify login page design
+
+## Support
+
+Jika ada masalah atau pertanyaan:
+
+1. Baca README.md untuk info lengkap
+2. Cek troubleshooting section di atas
+3. Lihat source code dan comments
+
+## License
+
+MIT License - Bebas digunakan dengan atribusi.
+
 ---
 
-For more information, see README.md
-Untuk informasi lebih lanjut, lihat README.md
+**Happy testing!**
+
+Untuk info lebih detail, lihat README.md
