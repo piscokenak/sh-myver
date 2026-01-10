@@ -65,8 +65,8 @@ platformio run -e esp32 --target upload
 Setelah flashing berhasil:
 
 **1. Hubungkan ke WiFi**
-- SSID: \WiFiShield\
-- Password: \12345678\
+- SSID: WiFiShield
+- Password: 12345678
 
 **2. Buka Admin Panel**
 
@@ -113,8 +113,8 @@ platformio run -e esp32 --target upload --upload-port COM3
 
 ### Tidak Bisa Akses 192.168.4.1
 
-- Pastikan sudah hubung ke WiFi \WiFiShield\
-- Verifikasi password: \12345678\
+- Pastikan sudah hubung ke WiFi WiFiShield
+- Verifikasi password: 12345678
 - Coba ping:
 
 \\\ash
@@ -162,5 +162,5 @@ https://github.com/Harriiee/wifishield
 
 ---
 
-**Dibuat oleh:** Harriiee  
+**Dibuat oleh:** Harriiee
 **Terakhir diupdate:** Januari 2026

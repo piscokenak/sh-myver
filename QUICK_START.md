@@ -32,7 +32,7 @@ git clone https://github.com/Harriiee/wifishield.git
 cd wifishield
 \\\
 
-### 2. Install PlatformIO (jika belum)
+### 2. Install PlatformIO
 
 \\\ash
 pip install platformio
@@ -54,7 +54,7 @@ Compile code untuk ESP32:
 platformio run -e esp32
 \\\
 
-Tunggu hingga muncul message: \[SUCCESS]\
+Tunggu hingga muncul message: [SUCCESS]
 
 ### 2. Connect ESP32 via USB
 
@@ -152,7 +152,7 @@ platformio device list
 platformio run -e esp32 --target upload --upload-port COM3
 \\\
 
-Ganti \COM3\ dengan port Anda.
+Ganti COM3 dengan port Anda.
 
 4. Coba tekan tombol RESET di board
 
@@ -162,8 +162,8 @@ Ganti \COM3\ dengan port Anda.
 
 **Pastikan:**
 
-- Sudah hubung ke WiFi \WiFiShield\
-- Password yang digunakan: \12345678\
+- Sudah hubung ke WiFi WiFiShield
+- Password yang digunakan: 12345678
 - Board berhasil di-flash (LED berkedip)
 
 **Test koneksi:**
@@ -214,17 +214,17 @@ wifishield/
 
 Default configuration:
 
-- WiFi SSID: \WiFiShield\
-- WiFi Password: \12345678\
-- Admin Address: \192.168.4.1\
-- Admin Port: \80\
+- WiFi SSID: WiFiShield
+- WiFi Password: 12345678
+- Admin Address: 192.168.4.1
+- Admin Port: 80
 
-Untuk mengubah, edit file di \src/\ dan \include/\ sesuai kebutuhan.
+Untuk mengubah, edit file di src/ dan include/ sesuai kebutuhan.
 
 ## Next Steps
 
 - Baca dokumentasi lengkap di README.md
-- Explore source code di folder \src/\
+- Explore source code di folder src/
 - Customize WiFi SSID dan password
 - Modify login page design
 
