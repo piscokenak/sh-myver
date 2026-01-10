@@ -1,28 +1,44 @@
-### Features
+# WiFiClone - ESP32 WiFi Phishing Framework
 
-- **Aircrack**:  
-Capture client handshake and check the user input password (Only WPA/WPA2).
+> Open Source WiFi credential capture tool for security testing & research
 
-- **Evil Twin Attack**:  
-Creates a rogue access point (AP) mimicking the target network, thus tricking clients into connecting to it.
+![License](https://img.shields.io/badge/License-MIT-green)
+![ESP32](https://img.shields.io/badge/ESP32-Microcontroller-blue)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
-- **Captive Portal**:  
-Victims will be automatically redirected to the Captive Portal page upon connecting to the fake access point.
+## 📌 Overview
 
-- **Advanced deauthentication technique**:  
-Supports new advanced techniques for Wi-Fi 6 deauthentication like negative TX power constraint, EAPOL-logoff, EAP-Failure, Malformed Handshare message 1, Invalid PMKID, EAPOL Rounds and EAPOL start spamming.
+WiFiClone adalah framework untuk ESP32 yang memungkinkan penelitian keamanan WiFi melalui Evil Twin attacks dan credential capture. Tool ini educational untuk security testing dengan izin pemilik network.
 
-- **Automatic Vendor Identification**:  
-Support for vendor identification based upon SSID name and capturing beacon frame (*TO DO*).
+> ⚠️ **DISCLAIMER**: Gunakan hanya untuk testing network Anda sendiri atau dengan izin. Penggunaan tanpa izin adalah ILEGAL.
 
-- **Phishing Scenarios**:  
-Serves customized phishing pages to capture sensitive information, such as login credentials.
+---
 
-- **Compact and Portable**:  
-  Runs on the ESP32, making it lightweight and suitable for hardware testing scenarios.
+## ✨ Features
 
-- **Configurable via Web Interface**:  
-  Allows customization of network settings and phishing scenarios through a web interface.
+- **Aircrack Integration**  
+  Capture client handshake dan check user input password (WPA/WPA2)
+
+- **Evil Twin Attack**  
+  Create rogue access point yang mimic target network
+
+- **Captive Portal**  
+  Auto redirect users ke phishing page saat connect
+
+- **WiFi Credential Capture**  
+  Tangkap username & password dari login form clone
+
+- **Advanced Deauthentication**  
+  WiFi 6 compatible: negative TX power, EAPOL-logoff, EAP-Failure, dll
+
+- **Vendor Identification**  
+  Auto detect vendor berdasarkan SSID
+
+- **Web Admin Interface**  
+  Manage settings & view captured credentials
+
+- **Compact & Portable**  
+  Lightweight pada ESP32 untuk hardware testing
 
 ## To-Do List 
 - [☑] Add a channel tracking functionality (some AP may switch channels)
@@ -81,51 +97,93 @@ Open the project in your IDE (e.g., Visual Studio Code) and ensure that Platform
      ```
 2. Install necessary dependencies by allowing PlatformIO to resolve them during the first build.
 
-### 3. Build and Upload
+---
 
-To build and upload the firmware to your ESP32:
+## 🚀 Quick Start
 
-1. Connect your ESP32 board to your computer via USB.
-2. In the PlatformIO terminal, run the following command:
-   ```bash
-   pio run --target upload
-   ```
+```bash
+# Clone repository
+git clone https://github.com/Harriiee/wificlone.git
+cd wificlone
 
-### 4. Monitor Logs
+# Build firmware
+python -m platformio run -e esp32
 
-To debug or monitor the ESP32's output logs:
-1. Use PlatformIO serial monitor:
-  ```bash
-   pio device monitor
-   ```
-2. To stop the monitor, press `Ctrl+C`.
+# Flash ke ESP32 (USB sudah terhubung)
+python -m platformio run -e esp32 --target upload
+
+# Access admin panel
+# - Connect ke WiFi: "WiFiClone" (pass: 12345678)
+# - Open browser: http://192.168.4.1/admin
+```
+
+Lihat **QUICK_START.md** untuk panduan lengkap.
 
 ---
 
-## Usage
+## 📦 Project Structure
 
-#### 1. Access Web Interface
-1. Connect to the ESP32 rogue AP (default: "MagicWifi").
-2. Open a browser and go to `http://192.168.4.1:8080/`.
-
-#### 2. Configure the Attack
-1. Select the target Wi-Fi network to impersonate.
-2. Choose a phishing scenario (e.g., fake login page).
-
-#### 3. Run the Attack
-Once configured, the ESP32 will execute the Evil Twin attack and serve the phishing page.
+```
+WifiClone/
+├── src/              # Source code C
+├── include/          # Header files
+├── lib/              # Libraries (libwifi, libpcap)
+├── platformio.ini    # PlatformIO config
+├── CMakeLists.txt    # CMake build config
+├── QUICK_START.md    # Setup guide
+├── README.md         # Dokumentasi ini
+└── LICENSE           # MIT License
+```
 
 ---
 
-## Screenshots
+## 📄 License
 
-Here are some visual examples of the tool in action:
+Project ini di-release under **MIT License** - bebas digunakan, dimodifikasi, dan didistribusikan kembali.
 
-### 1. Settings Page
-![Settings Page](./screenshots/settings_page.png)
+Lihat file [LICENSE](./LICENSE) untuk detail lengkap.
 
-### 2. EvilTwin Page
-![EvilTwin Page](./screenshots/elivtwin_page.png)
+---
+
+## 🤝 Contributing
+
+Kontribusi welcome! Silakan:
+- Fork repository
+- Create feature branch (`git checkout -b feature/AmazingFeature`)
+- Commit changes (`git commit -m 'Add AmazingFeature'`)
+- Push to branch (`git push origin feature/AmazingFeature`)
+- Open Pull Request
+
+---
+
+## ⚖️ Legal & Disclaimer
+
+**PENTING**: Tool ini hanya untuk educational dan authorized security testing. 
+
+**DILARANG**:
+- ❌ Gunakan untuk hack network orang lain tanpa izin
+- ❌ Capture credentials tanpa consent
+- ❌ Illegal network penetration
+
+**Gunakan bertanggung jawab!**
+
+---
+
+## 📞 Support
+
+Jika ada pertanyaan atau issue, buka GitHub Issues di repository ini.
+
+---
+
+## 🔗 Links
+
+- **Repository**: https://github.com/Harriiee/wificlone
+- **License**: MIT
+- **Platform**: ESP32, PlatformIO, ESP-IDF
+
+---
+
+*Last Updated: January 2026*
 
 ### 3. Example Phishing Page
 ![Phishing Page Example](./screenshots/phishing_page_example.png)
