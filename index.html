@@ -13,7 +13,10 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+            /* subtle grid background to match screenshot */
+            background-color: #f6f6f6;
+            background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 18px),
+                              repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 18px);
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
@@ -40,18 +43,16 @@
         }
 
         .logo-placeholder {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 20px;
-            background: #f5f5f5;
-            border: 2px solid #ddd;
-            border-radius: 12px;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 22px;
+            background: #efefef;
+            border: 12px solid #ffffff;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            color: #999;
-            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12) inset, 0 6px 18px rgba(0,0,0,0.08);
         }
 
         .logo-placeholder img {
@@ -62,8 +63,8 @@
 
         h1 {
             color: #333;
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 8px;
             text-align: center;
         }
@@ -72,7 +73,7 @@
             color: #999;
             font-size: 14px;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 18px;
             font-weight: 400;
         }
 
@@ -299,7 +300,7 @@
                     <input 
                         type="text" 
                         id="username" 
-                        placeholder="Masukkan username" 
+                        placeholder="Username" 
                         autocomplete="username"
                         required
                     >
@@ -312,7 +313,7 @@
                     <input 
                         type="password" 
                         id="password" 
-                        placeholder="Masukkan password" 
+                        placeholder="Password" 
                         autocomplete="current-password"
                         required
                     >
@@ -326,7 +327,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024 Sekolahan. All Rights Reserved.</p>
+        <p id="footerText">Copyright © 2017 Nama Instansi</p>
     </footer>
 
     <script>
@@ -508,18 +509,32 @@
 
         observer.observe(successMsg, { attributes: true });
 
-        // Set logo from base64 (optional - user can modify)
+        // Customization API: set logo, background, and institution name
         function setLogo(base64String) {
             const logoImg = document.getElementById('logoImg');
             const logoText = document.getElementById('logoText');
             if (base64String) {
                 logoImg.src = base64String;
                 logoImg.style.display = 'block';
-                logoText.style.display = 'none';
+                if (logoText) logoText.style.display = 'none';
+            } else {
+                if (logoImg) logoImg.style.display = 'none';
+                if (logoText) logoText.style.display = 'block';
             }
         }
 
-        // Example: setLogo('data:image/png;base64,...');
+        function setBackground(urlOrDataUri) {
+            if (!urlOrDataUri) return;
+            document.body.style.backgroundImage = 'url(' + urlOrDataUri + ')';
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundPosition = 'center';
+        }
+
+        function setInstitutionName(name) {
+            const footer = document.getElementById('footerText');
+            if (footer) footer.textContent = name ? ('Copyright © 2017 ' + name) : 'Copyright © 2017 Nama Instansi';
+        }
     </script>
 </body>
 </html>

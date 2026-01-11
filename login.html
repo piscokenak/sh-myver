@@ -31,6 +31,7 @@
   <div class="login-container">
     <div class="logo-placeholder">
       <img id="logoImg" src="" alt="Logo" style="display:block">
+      <span id="logoText">Ganti logo Anda</span>
     </div>
 
     <form id="loginForm" style="max-width:320px;margin:0 auto">
@@ -51,7 +52,26 @@
   <footer class="footer">Copyright © 2017 Perguruan Diponegoro</footer>
 
   <script>
-    // simple preview behavior
+    // Customization API for preview
+    function setLogo(base64) {
+      var logo = document.getElementById('logoImg');
+      var logoText = document.getElementById('logoText');
+      if (base64) { logo.src = base64; logo.style.display = 'block'; if(logoText) logoText.style.display='none'; }
+      else { logo.style.display='none'; if(logoText) logoText.style.display='block'; }
+    }
+
+    function setBackground(url) {
+      if (!url) return;
+      document.body.style.backgroundImage = 'url(' + url + ')';
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundRepeat = 'no-repeat';
+    }
+
+    function setInstitutionName(name) {
+      var f = document.querySelector('.footer p');
+      if (f) f.textContent = name ? ('Copyright © 2017 ' + name) : 'Copyright © 2017 Nama Instansi';
+    }
+
     document.getElementById('loginForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Preview: form submit'); });
   </script>
 </body>
