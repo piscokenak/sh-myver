@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCP Sekolahan - Login (Preview)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 420px;
+            margin-bottom: 80px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-placeholder {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .input-box { border: 1px solid #ddd; border-radius: 8px; background: #fff; overflow: hidden; }
+
+        input[type="text"], input[type="password"] { width:100%; padding:12px 14px; border:none; outline:none; }
+
+        .login-btn { width:100%; padding:13px 20px; background:linear-gradient(135deg,#20b2aa 0,#48d1cc 100%); color:#fff; border:none; border-radius:8px; font-weight:600; }
+
+        .message { display:none; padding:12px; border-radius:8px; margin-bottom:20px; }
+
+        .footer { position:fixed; bottom:0; left:0; right:0; text-align:center; padding:15px; color:#666; font-size:12px; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <div class="logo-placeholder">Ganti dengan Logo Sekolah Anda</div>
+        </div>
+        <h1>Login Sekolahan</h1>
+        <p class="subtitle">Masukkan kredensial Anda</p>
+        <div id="errorMsg" class="message" style="background:#ffe8e8;color:#d32f2f;display:none"></div>
+        <form id="loginForm">
+            <div class="form-group"><label for="username">Username</label><div class="input-box"><input id="username" type="text" placeholder="Masukkan username" autocomplete="username" required></div></div>
+            <div class="form-group"><label for="password">Password</label><div class="input-box"><input id="password" type="password" placeholder="Masukkan password" autocomplete="current-password" required></div></div>
+            <button id="loginBtn" class="login-btn" type="submit">LOGIN</button>
+        </form>
+    </div>
+    <footer class="footer">&copy; 2024 Sekolahan. All Rights Reserved.</footer>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Simulasi submit ke /login (preview)'); });
+    </script>
+</body>
+</html>

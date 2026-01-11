@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCP Login - Sekolahan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px 30px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .logo-container {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 35px;
+            background: #e8e8e8;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #999;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #fafafa;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #20b2aa;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #20b2aa 0%, #48d1cc 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn:hover {
+            box-shadow: 0 8px 25px rgba(32, 178, 170, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .login-btn.loading::after {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+
+        .message.success {
+            background: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+
+        .message.warning {
+            background: #ffeaa7;
+            color: #d63031;
+            border: 1px solid #ffde59;
+        }
+
+        .message.info {
+            background: #e7f3ff;
+            color: #0066cc;
+            border: 1px solid #b3d9ff;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 20px;
+            }
+
+            .logo-container {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 25px;
+            }
+
+            .form-group input {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .login-btn {
+                padding: 13px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .login-card {
+                padding: 25px 15px;
+            }
+
+            .logo-container {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+
+            .login-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="logo-container">
+                <div class="logo-placeholder">Ganti dengan Logo Sekolah Anda</div>
+            </div>
+
+            <form id="loginForm">
+                <div id="errorMsg" class="message error"></div>
+                <div id="successMsg" class="message success"></div>
+                <div id="warningMsg" class="message warning"></div>
+
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="username" 
+                        placeholder="Username" 
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Password" 
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">LOGIN</button>
+            </form>
+        </div>
+
+        <div class="copyright">
+            © 2024 Sekolahan. All Rights Reserved.
+        </div>
+    </div>
+
+    <script>
+        const config = {
+            loginEndpoint: '/login',
+            maxAttempts: 5,
+            lockoutTime: 300000, // 5 minutes in milliseconds
+            minUsernameLength: 3,
+            minPasswordLength: 6
+        };
+
+        const form = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+        const warningMsg = document.getElementById('warningMsg');
+
+        // Hide messages
+        function hideMessages() {
+            errorMsg.classList.remove('show');
+            successMsg.classList.remove('show');
+            warningMsg.classList.remove('show');
+        }
+
+        function showError(message) {
+            hideMessages();
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+        }
+
+        function showSuccess(message) {
+            hideMessages();
+            successMsg.textContent = message;
+            successMsg.classList.add('show');
+        }
+
+        function showWarning(message) {
+            hideMessages();
+            warningMsg.textContent = message;
+            warningMsg.classList.add('show');
+        }
+
+        // Form validation
+        function validateForm() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!username) {
+                showError('Username diperlukan.');
+                return false;
+            }
+
+            if (username.length < config.minUsernameLength) {
+                showError(`Username minimal ${config.minUsernameLength} karakter.`);
+                return false;
+            }
+
+            if (!password) {
+                showError('Password diperlukan.');
+                return false;
+            }
+
+            if (password.length < config.minPasswordLength) {
+                showError(`Password minimal ${config.minPasswordLength} karakter.`);
+                return false;
+            }
+
+            return true;
+        }
+
+        // Get login attempts from localStorage
+        function getLoginAttempts() {
+            const data = localStorage.getItem('loginAttempts');
+            return data ? JSON.parse(data) : { count: 0, timestamp: Date.now() };
+        }
+
+        // Check if account is locked
+        function checkAccountLockout() {
+            const attempts = getLoginAttempts();
+            const now = Date.now();
+            const timeDiff = now - attempts.timestamp;
+
+            if (attempts.count >= config.maxAttempts) {
+                if (timeDiff < config.lockoutTime) {
+                    const remainingTime = Math.ceil((config.lockoutTime - timeDiff) / 1000);
+                    const minutes = Math.floor(remainingTime / 60);
+                    const seconds = remainingTime % 60;
+                    showWarning(`Akun terkunci. Coba lagi dalam ${minutes}m ${seconds}s`);
+                    disableForm(true);
+                    return true;
+                } else {
+                    // Reset attempts after lockout time
+                    localStorage.removeItem('loginAttempts');
+                    enableForm();
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        // Increment login attempts
+        function incrementLoginAttempts() {
+            const attempts = getLoginAttempts();
+            const now = Date.now();
+
+            if (now - attempts.timestamp > config.lockoutTime) {
+                attempts.count = 1;
+                attempts.timestamp = now;
+            } else {
+                attempts.count++;
+            }
+
+            localStorage.setItem('loginAttempts', JSON.stringify(attempts));
+
+            if (attempts.count >= config.maxAttempts) {
+                showWarning(`Terlalu banyak percobaan. Akun terkunci selama 5 menit.`);
+                disableForm(true);
+            } else {
+                const remaining = config.maxAttempts - attempts.count;
+                showWarning(`Login gagal. Tersisa ${remaining} percobaan.`);
+            }
+        }
+
+        // Disable form
+        function disableForm(isLocked = false) {
+            usernameInput.disabled = true;
+            passwordInput.disabled = true;
+            loginBtn.disabled = true;
+            loginBtn.style.opacity = '0.6';
+            loginBtn.style.cursor = 'not-allowed';
+        }
+
+        // Enable form
+        function enableForm() {
+            usernameInput.disabled = false;
+            passwordInput.disabled = false;
+            loginBtn.disabled = false;
+            loginBtn.style.opacity = '1';
+            loginBtn.style.cursor = 'pointer';
+            hideMessages();
+        }
+
+        // Set button loading state
+        function setButtonLoading(isLoading) {
+            loginBtn.disabled = isLoading;
+            loginBtn.textContent = isLoading ? 'LOADING...' : 'LOGIN';
+            loginBtn.classList.toggle('loading', isLoading);
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            hideMessages();
+
+            // Check account lockout
+            if (checkAccountLockout()) {
+                return;
+            }
+
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            setButtonLoading(true);
+
+            try {
+                const response = await fetch(config.loginEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Reset login attempts on success
+                    localStorage.removeItem('loginAttempts');
+                    showSuccess(data.message || 'Login berhasil!');
+                    form.reset();
+                    
+                    // Redirect after 2 seconds (optional)
+                    // setTimeout(() => { window.location.href = '/dashboard'; }, 2000);
+                } else {
+                    incrementLoginAttempts();
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('Terjadi kesalahan. Periksa koneksi jaringan Anda.');
+            } finally {
+                setButtonLoading(false);
+            }
+        });
+
+        // Clear messages on input
+        usernameInput.addEventListener('input', hideMessages);
+        passwordInput.addEventListener('input', hideMessages);
+
+        // Check lockout on page load
+        window.addEventListener('load', () => {
+            checkAccountLockout();
+        });
+    </script>
+</body>
+</html>
