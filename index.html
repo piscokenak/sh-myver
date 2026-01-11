@@ -13,10 +13,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* subtle grid background to match screenshot */
-            background-color: #f6f6f6;
-            background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 18px),
-                              repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 18px);
+            background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -26,12 +24,13 @@
         }
 
         .login-container {
-            background: rgba(255,255,255,0.95);
-            border-radius: 14px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-            padding: 36px 30px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 50px 40px;
             width: 100%;
-            max-width: 360px;
+            max-width: 420px;
             margin-bottom: 80px;
         }
 
@@ -41,16 +40,18 @@
         }
 
         .logo-placeholder {
-            width: 220px;
-            height: 220px;
-            margin: 0 auto 22px;
-            background: #efefef;
-            border: 12px solid #ffffff;
-            border-radius: 8px;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12) inset, 0 6px 18px rgba(0,0,0,0.08);
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
         }
 
         .logo-placeholder img {
@@ -61,9 +62,9 @@
 
         h1 {
             color: #333;
-            font-size: 20px;
+            font-size: 28px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-align: center;
         }
 
@@ -79,15 +80,20 @@
             margin-bottom: 20px;
         }
 
-        /* labels are hidden in the screenshot design; placeholders are used instead */
-        label { display: none; }
+        label {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
 
         .input-box {
-            border: 1px solid #d7d7d7;
-            border-radius: 6px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             background: #fff;
             overflow: hidden;
-            transition: all 0.18s ease;
+            transition: all 0.3s ease;
         }
 
         .input-box:focus-within {
@@ -98,10 +104,10 @@
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 14px;
             border: none;
             outline: none;
-            font-size: 16px;
+            font-size: 14px;
             color: #333;
             background: transparent;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -109,8 +115,7 @@
 
         input[type="text"]::placeholder,
         input[type="password"]::placeholder {
-            color: #9a9a9a;
-            font-size: 15px;
+            color: #bbb;
         }
 
         input[type="text"]:focus,
@@ -120,23 +125,21 @@
 
         .login-btn {
             width: 100%;
-            padding: 14px 20px;
-            background: #45c6cf;
+            padding: 13px 20px;
+            background: linear-gradient(135deg, #20b2aa 0%, #48d1cc 100%);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.12s ease, box-shadow 0.12s ease;
-            margin-top: 12px;
-            text-shadow: 0 1px 0 rgba(0,0,0,0.15);
-            box-shadow: 0 6px 0 rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            margin-top: 10px;
         }
 
         .login-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(69,198,207,0.18);
+            box-shadow: 0 10px 25px rgba(32, 178, 170, 0.35);
         }
 
         .login-btn:active:not(:disabled) {
@@ -204,14 +207,15 @@
 
         .footer {
             position: fixed;
-            bottom: 10px;
+            bottom: 0;
             left: 0;
             right: 0;
             text-align: center;
-            color: #222;
-            font-size: 16px;
-            font-weight: 600;
-            text-shadow: 0 2px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,0,0,0.08);
+            padding: 15px;
+            background: transparent;
+            color: #666;
+            font-size: 12px;
+            font-weight: 400;
         }
 
         .footer a {
@@ -276,21 +280,26 @@
     <div class="login-container">
         <div class="logo-container">
             <div class="logo-placeholder">
-                <img src="" alt="Logo Sekolahan" id="logoImg" style="display: none; max-width:100%; max-height:100%;">
+                <img src="" alt="Logo Sekolahan" id="logoImg" style="display: none;">
+                <span id="logoText">Ganti dengan Logo Sekolah Anda</span>
             </div>
         </div>
 
-        <h1>Login</h1>
+        <h1>Login Sekolahan</h1>
+        <p class="subtitle">Masukkan kredensial Anda</p>
 
         <div id="errorMsg" class="message error"></div>
+        <div id="successMsg" class="message success"></div>
+        <div id="warningMsg" class="message warning"></div>
 
         <form id="loginForm">
             <div class="form-group">
+                <label for="username">Username</label>
                 <div class="input-box">
                     <input 
                         type="text" 
                         id="username" 
-                        placeholder="Username" 
+                        placeholder="Masukkan username" 
                         autocomplete="username"
                         required
                     >
@@ -298,18 +307,21 @@
             </div>
 
             <div class="form-group">
+                <label for="password">Password</label>
                 <div class="input-box">
                     <input 
                         type="password" 
                         id="password" 
-                        placeholder="Password" 
+                        placeholder="Masukkan password" 
                         autocomplete="current-password"
                         required
                     >
                 </div>
             </div>
 
-            <button type="submit" class="login-btn" id="loginBtn">LOGIN</button>
+            <button type="submit" class="login-btn" id="loginBtn">
+                LOGIN
+            </button>
         </form>
     </div>
 

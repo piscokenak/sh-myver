@@ -1,3 +1,61 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color:#f6f6f6;
+      background-image:repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 18px),
+                        repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 18px);
+      display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px
+    }
+    .login-container{width:100%;max-width:420px;background:rgba(255,255,255,0.95);border-radius:14px;padding:36px 30px;box-shadow:0 18px 40px rgba(0,0,0,0.12);text-align:center}
+    .logo-placeholder{width:220px;height:220px;margin:0 auto 22px;background:#efefef;border:12px solid #fff;border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,0.12) inset,0 6px 18px rgba(0,0,0,0.08)}
+    .logo-placeholder img{max-width:100%;max-height:100%;object-fit:contain}
+    .form-group{margin-bottom:16px}
+    .input-box{border:1px solid #d7d7d7;border-radius:6px;background:#fff;overflow:hidden}
+    input[type=text],input[type=password]{width:100%;padding:14px 16px;border:0;outline:0;font-size:16px}
+    input::placeholder{color:#666;font-family:Georgia, 'Times New Roman', Times, serif;font-size:15px}
+    .login-btn{width:100%;padding:14px 20px;background:#45c6cf;color:#fff;border:0;border-radius:8px;font-weight:700;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,0.06);text-shadow:0 1px 0 rgba(0,0,0,0.15)}
+    .login-btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(69,198,207,0.18)}
+    .footer{position:fixed;left:0;right:0;bottom:10px;text-align:center;color:#000;font-size:16px;font-weight:700;text-shadow:0 3px 0 rgba(255,255,255,0.95),0 2px 3px rgba(0,0,0,0.25)}
+    @media(max-width:480px){.logo-placeholder{width:180px;height:180px}.login-container{padding:28px 20px}}
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo-placeholder">
+      <img id="logoImg" src="" alt="Logo" style="display:block">
+    </div>
+
+    <form id="loginForm" style="max-width:320px;margin:0 auto">
+      <div class="form-group">
+        <div class="input-box">
+          <input type="text" id="username" placeholder="Username" autocomplete="username" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-box">
+          <input type="password" id="password" placeholder="Password" autocomplete="current-password" required>
+        </div>
+      </div>
+      <button type="submit" class="login-btn">LOGIN</button>
+    </form>
+  </div>
+
+  <footer class="footer">Copyright © 2017 Perguruan Diponegoro</footer>
+
+  <script>
+    // simple preview behavior
+    document.getElementById('loginForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Preview: form submit'); });
+  </script>
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -68,7 +126,7 @@
 
         input[type="text"], input[type="password"] { width:100%; padding:14px 16px; border:none; outline:none; font-size:16px; }
 
-        .login-btn { width:100%; padding:14px 20px; background:#45c6cf; color:#fff; border:none; border-radius:8px; font-weight:700; box-shadow:0 6px 0 rgba(0,0,0,0.06); }
+        .login-btn { width:100%; padding:14px 20px; background:#45c6cf; color:#fff; border:none; border-radius:8px; font-weight:700; box-shadow:0 6px 0 rgba(0,0,0,0.06); text-shadow:0 1px 0 rgba(0,0,0,0.15); }
 
         .message { display:none; padding:12px; border-radius:8px; margin-bottom:20px; }
 
@@ -89,7 +147,7 @@
             <button id="loginBtn" class="login-btn" type="submit">LOGIN</button>
         </form>
     </div>
-    <footer class="footer">&copy; 2024 Sekolahan. All Rights Reserved.</footer>
+    <footer class="footer">Copyright © 2017 Perguruan Diponegoro</footer>
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Simulasi submit ke /login (preview)'); });
     </script>
